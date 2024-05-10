@@ -17,4 +17,4 @@ class User(Base, IdIntPkMixin, SQLAlchemyBaseUserTable[UserIdType]):
 
     @classmethod
     def get_db(cls, session: "AsyncSession"):
-        return SQLAlchemyUserDatabase(session, User)
+        return SQLAlchemyUserDatabase(session, cls)
