@@ -1,5 +1,16 @@
 # FastAPI Example App
 
+FastAPI-Users:
+- GitHub https://github.com/fastapi-users/fastapi-users
+- Docs https://fastapi-users.github.io/fastapi-users/latest/
+
+
+Generate secret:
+```shell
+python -c 'import secrets; print(secrets.token_hex())'
+```
+
+
 Resources:
 
 - `.gitignore` for Python https://github.com/github/gitignore/blob/main/Python.gitignore
@@ -16,8 +27,3 @@ Resources:
 - Alembic + asyncio recipe https://alembic.sqlalchemy.org/en/latest/cookbook.html#using-asyncio-with-alembic
 - orjson https://github.com/ijl/orjson
 - FastAPI ORJSONResponse https://fastapi.tiangolo.com/advanced/custom-response/#use-orjsonresponse
-
-
-```shell
-python -c 'import secrets; print(secrets.token_hex())'
-```
