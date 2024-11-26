@@ -1,3 +1,4 @@
+import logging
 from typing import Literal
 
 from pydantic import BaseModel
@@ -32,6 +33,10 @@ class LoggingConfig(BaseModel):
         'critical',
     ] = 'info'
     log_format: str = LOG_DEFAULT_FORMAT
+
+    @property
+    def log_level_value(self) -> int:
+        return logging.getLevelNamesMapping()[self.log_level.upper()]
 
 
 class ApiV1Prefix(BaseModel):

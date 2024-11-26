@@ -1,4 +1,5 @@
 from fastapi_users import schemas
+from pydantic import BaseModel
 
 from core.types.user_id import UserIdType
 
@@ -13,3 +14,8 @@ class UserCreate(schemas.BaseUserCreate):
 
 class UserUpdate(schemas.BaseUserUpdate):
     pass
+
+
+class UserRegisteredNotification(BaseModel):
+    user: UserRead
+    ts: int
