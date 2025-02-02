@@ -22,6 +22,7 @@ def view_may_raise_error(
     raise_error: bool = False,
 ):
     if raise_error:
+        # 1 / 0
         UserRead.model_validate(None)
     return {"ok": True}
 
