@@ -17,6 +17,15 @@ router = APIRouter(
 )
 
 
+@router.get("/error")
+def view_may_raise_error(
+    raise_error: bool = False,
+):
+    if raise_error:
+        UserRead.model_validate(None)
+    return {"ok": True}
+
+
 @router.get("")
 def get_user_messages(
     user: Annotated[
