@@ -12,6 +12,7 @@ from starlette.responses import HTMLResponse
 
 from api.webhooks import webhooks_router
 from core.models import db_helper
+from errors_handlers import register_errors_handlers
 
 
 @asynccontextmanager
@@ -59,4 +60,5 @@ def create_app(
     if create_custom_static_urls:
         register_static_docs_routes(app)
 
+    register_errors_handlers(app)
     return app
