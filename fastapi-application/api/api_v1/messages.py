@@ -3,7 +3,7 @@ from typing import Annotated
 from fastapi import APIRouter
 from fastapi import Depends
 
-from api.api_v1.fastapi_users import (
+from core.authentication.fastapi_users import (
     current_active_user,
     current_active_superuser,
 )
