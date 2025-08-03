@@ -8,7 +8,6 @@ from mailing.send_email import send_email
 async def send_verification_email(
     user: User,
     verification_link: str,
-    verification_token: str,
 ):
     recipient = user.email
     subject = "Confirm your email for site.com"
@@ -19,10 +18,7 @@ async def send_verification_email(
         
         Please follow the link to verify your email:
         {verification_link}
-        
-        Use this token to verify your email:
-        {verification_token}
-        
+
         Your site admin,
         © 2025.
         """
@@ -32,7 +28,6 @@ async def send_verification_email(
     context = {
         "user": user,
         "verification_link": verification_link,
-        "verification_token": verification_token,
     }
     html_content = template.render(context)
     await send_email(

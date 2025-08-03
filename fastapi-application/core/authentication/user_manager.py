@@ -68,14 +68,13 @@ class UserManager(IntegerIDMixin, BaseUserManager[User, UserIdType]):
             user.id,
             token,
         )
-        verification_link = (
-            "http://0.0.0.0:8000/docs#/Auth/verify_verify_api_v1_auth_verify_post"
+        verification_link = request.url_for("verify_email").replace_query_params(
+            token=token
         )
         self.background_tasks.add_task(
             send_verification_email,
             user=user,
-            verification_link=verification_link,
-            verification_token=token,
+            verification_link=str(verification_link),
         )
 
     async def on_after_verify(
