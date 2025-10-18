@@ -8,8 +8,10 @@ from fastapi.openapi.docs import (
     get_swagger_ui_oauth2_redirect_html,
 )
 from fastapi.responses import ORJSONResponse
+from sqladmin import Admin
 from starlette.responses import HTMLResponse
 
+from admin import register_admin_views
 from api.webhooks import webhooks_router
 from core.models import db_helper
 from errors_handlers import register_errors_handlers
@@ -63,4 +65,10 @@ def create_app(
 
     register_errors_handlers(app)
     register_middlewares(app)
+
+    admin = Admin(
+        app=app,
+        session_maker=db_helper.session_factory,
+    )
+    register_admin_views(admin)
     return app
