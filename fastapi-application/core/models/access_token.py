@@ -11,6 +11,7 @@ from sqlalchemy import (
 from sqlalchemy.orm import (
     Mapped,
     mapped_column,
+    relationship,
 )
 
 from core.types.user_id import UserIdType
@@ -18,6 +19,7 @@ from .base import Base
 
 if TYPE_CHECKING:
     from sqlalchemy.ext.asyncio import AsyncSession
+    from core.models import User
 
 
 class AccessToken(Base, SQLAlchemyBaseAccessTokenTable[UserIdType]):
@@ -27,6 +29,13 @@ class AccessToken(Base, SQLAlchemyBaseAccessTokenTable[UserIdType]):
         nullable=False,
     )
 
+    user: Mapped["User"] = relationship(
+        back_populates="access_tokens",
+    )
+
     @classmethod
     def get_db(cls, session: "AsyncSession"):
         return SQLAlchemyAccessTokenDatabase(session, cls)
+
+    def __str__(self):
+        return self.token
