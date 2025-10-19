@@ -8,11 +8,15 @@ from fastapi.openapi.docs import (
     get_swagger_ui_oauth2_redirect_html,
 )
 from fastapi.responses import ORJSONResponse
+from fastapi_cache import FastAPICache
+from fastapi_cache.backends.redis import RedisBackend
 from sqladmin import Admin
 from starlette.responses import HTMLResponse
+from redis.asyncio import Redis
 
 from admin import register_admin_views
 from api.webhooks import webhooks_router
+from core.config import settings
 from core.models import db_helper
 from errors_handlers import register_errors_handlers
 from middlewares import register_middlewares
@@ -21,6 +25,16 @@ from middlewares import register_middlewares
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     # startup
+    redis = Redis(
+        host=settings.redis.host,
+        port=settings.redis.port,
+        db=settings.redis.db.cache,
+    )
+    FastAPICache.init(
+        RedisBackend(redis),
+        prefix=settings.cache.prefix,
+    )
+
     yield
     # shutdown
     await db_helper.dispose()
