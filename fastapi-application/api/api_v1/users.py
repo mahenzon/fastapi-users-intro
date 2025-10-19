@@ -50,7 +50,6 @@ def users_list_key_builder(
     "",
     response_model=list[UserRead],
 )
-# async def get_users_list() -> list[UserRead]:
 @cache(
     expire=60,
     key_builder=users_list_key_builder,
@@ -61,8 +60,10 @@ async def get_users_list(
         "SQLAlchemyUserDatabase",
         Depends(get_users_db),
     ],
-) -> list["User"]:
-    return await users_db.get_users()
+    # ) -> list["User"]:
+) -> list[UserRead]:
+    users = await users_db.get_users()
+    return [UserRead.model_validate(user) for user in users]
 
 
 # /me
