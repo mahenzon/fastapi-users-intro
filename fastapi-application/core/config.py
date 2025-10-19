@@ -86,6 +86,25 @@ class AccessToken(BaseModel):
     verification_token_secret: str
 
 
+class RedisDB(BaseModel):
+    cache: int = 0
+
+
+class RedisConfig(BaseModel):
+    host: str = "localhost"
+    port: int = 6379
+    db: RedisDB = RedisDB()
+
+
+class CacheNamespace(BaseModel):
+    users_list: str = "users-list"
+
+
+class CacheConfig(BaseModel):
+    prefix: str = "fastapi-cache"
+    namespace: CacheNamespace = CacheNamespace()
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=(
@@ -102,6 +121,8 @@ class Settings(BaseSettings):
     api: ApiPrefix = ApiPrefix()
     db: DatabaseConfig
     access_token: AccessToken
+    redis: RedisConfig = RedisConfig()
+    cache: CacheConfig = CacheConfig()
 
 
 settings = Settings()
