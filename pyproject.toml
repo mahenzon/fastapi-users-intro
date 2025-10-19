@@ -17,6 +17,8 @@ orjson = "^3.11.1"
 jinja2 = "^3.1.6"
 aiosmtplib = "^4.0.1"
 sqladmin = {extras = ["full"], version = "^0.21.0"}
+fastapi-cache2 = "^0.2.2"
+redis = "^6.4.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^25.1.0"
