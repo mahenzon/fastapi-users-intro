@@ -1,5 +1,10 @@
 services:
 
+  redis:
+    image: redis:8-alpine
+    ports:
+      - "6379:6379"
+
   pg:
     image: postgres:17
     environment:
