@@ -6,7 +6,7 @@ from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.base import BaseHTTPMiddleware
 
-from requests_count_middleware import requests_count_middleware_dispatch
+from middlewares.requests_count_middleware import requests_count_middleware_dispatch
 
 log = logging.getLogger(__name__)
 

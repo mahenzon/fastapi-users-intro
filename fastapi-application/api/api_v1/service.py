@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from core.config import settings
-from requests_count_middleware import requests_count_middleware_dispatch
+from middlewares.requests_count_middleware import requests_count_middleware_dispatch
 
 router = APIRouter(
     prefix=settings.api.v1.service,
